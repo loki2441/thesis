@@ -1,17 +1,22 @@
 \section{Apache Mesos:}
 \label{sec:mesos}
+
+\figwtwocol{elastic_sharing}{5in}{Elastic Sharing Mesos}
+
 Mesos was started in 2009 to try and increase the performance and utilization of clusters. The project's key idea was to have a framework for the distributed system so that  the nodes in a cluster can be used as a shared pool instead of statically partitioning each of those individual nodes (filip). 
 
 Usually in a static sharing or static partitioning, one server runs on one node availing all its resources. Most of the times, the resources on such nodes are wasted as the server doesn't utilize all the resources of the node. Using the elastic sharing, Mesos layer of abstraction talks to all the available nodes in the cluster aggregating the resources, making a cluster of nodes look like as one single machine.
 
-\begin{figure*}
-\centering
-\includegraphics[scale=0.5]{./fig/elastic_sharing}
-\caption{Elastic Sharing in Mesos}
-\label{fig:elastic_sharing}
-\end{figure*}
+As shown in Figure~\ref{fig:elastic_sharing}, ....
+%\begin{figure*}
+%\centering
+%\includegraphics{./fig/elastic_sharing}
+%\label{fig:elastic_sharing}
+%\end{figure*}
 
-As shown in figure 2, Mesos architecture consists of master nodes and agent nodes, framework and Zookeeper. In Mesos cluster, Master nodes run the master process that manages the slave processes running on agent nodes. Slave processes run the tasks, for e.g. a database query or bash command, which are scheduled to be executed on the agent nodes. 
+
+\figw{mesos}{3.4in}{Apache's Mesos Architecture}
+As shown in Figure~\ref{fig:mesos}, Mesos architecture consists of master nodes and agent nodes, framework and Zookeeper. In Mesos cluster, Master nodes run the master process that manages the slave processes running on agent nodes. Slave processes run the tasks, for e.g. a database query or bash command, which are scheduled to be executed on the agent nodes. 
 
 Framework is a Mesos application which has has two component: scheduler and executor. Using their scheduler, framework schedules the task to run on the agent nodes. The tasks are executed by executor process that is launched on each agent nodes. Before scheduling a task, framework needs to be registered with the master node. The services running on the top of the Mesos framework don't care about the cluster resources. The services/frameworks running on top of the Mesos requests to the Mesos layer for the resources required at that particular time.
 
@@ -21,12 +26,6 @@ After receiving the offer, the framework, e.g. Marathon or Hadoop, chooses to ac
 
 Zookeeper is a tool which is used provide the high availability of the master nodes in Mesos. It replicates the master nodes and coordinate with them. One of these masters is selected as the leader.
 
-\begin{figure*}
-\centering
-\includegraphics[scale=0.5]{./fig/mesos}
-\caption{Apache's Mesos Architecture}
-\label{fig:mesosArch}
-\end{figure*}
 
 Following are the features of Mesos:
 
