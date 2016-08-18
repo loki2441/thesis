@@ -1,0 +1,56 @@
+\section{Container Orchestration Tool}
+\label{sec:ContainerOrchestrationTool}
+It is a group of machines that runs and manage the containerized applications. These machines could be physical machines or virtual machines. The software tool that manages it is called container orchestration tool. 
+
+Usually, one of the cluster machines is chosen as the master and rest of the machines act like workers. The master machine basically does scheduling of the applications and deploy it using a container on the one of the worker machines. A worker machine executes the scheduled application using containers. This is the basic architecture of a container orchestration tool.
+
+The basic features of a container orchestration tool are:
+\begin{enumerate}
+\item Microservices:
+Master machine breaks down a monolithic application into smaller parts in such a way that these parts are manageable individually. Breaking down into smaller parts allows to scale them horizontally. thus, an application is a collection of smaller services called as microservices. These microservices implement one function of the application. This feature allows to have clear interfaces between these smaller parts which ultimately help in scaling up the applications.
+
+\item Service discovery:
+As mentioned above, microservices have clear itnerfaces that allows to communicate with each other. These microservices need to be discovered in order to be used by other services or applications. Container orchestration tool uses a naming resolution service to discover the services and to resolve the requested services to its target. Some of the container orchestration tools use labels for the service discovery.
+
+\item Scheduling: Tbe master machine in container orchestration tool should be able to package up the job in a container and decide on which worker machine this job should be sent. 
+
+Scheduling is a totally dynamic process which is based on the requirements and availability of the resources across the cluster. To do scheduling, the master machine uses the information of the availability of free hardware resources (e.g. memory, disk space, CPU, etc)on every worker machine and availability of some special hardwares(e.g. GPUs) as well.
+
+Scheduling also involves having multiple instances of a task and distributing it across the multiple machines. Scheduling multiple instances of a task helps in achieving fault tolerance.
+
+Scheduling should be totally dynamic. What it means is that scheduling should reschedule the tasks depending upon the state of the cluster.
+
+Sometimes a scheduler is also required to schedule correlated tasks on same machine.
+
+\item High Availability of manager node: In a cluster, one of the nodes can be chosen as the manager node. Its task is to coordinate with the worker nodes and the containers running on those nodes. Failure of manager node will shut down the whole cluster. To avoid this scenario, it is important to have a cluster which can recover from the failure of the manager node.
+
+
+\item  Horizontal scaling/recovery from container failure: A container orchestration tool should have a provision for scaling up the application horizontally i.e. having multiple instances of a container. This feature allows to have zero downtime in case of container failure.
+
+It is possible that a container running on a node can fail while it is still executing the task. Additionally node failure will also cause all the containers to fail. It is important to automatically restart work of a container from its failed state on healthy nodes.
+
+Recovering from a container failure using multiple instances may require some kind of failover mechanism e.g. load balancing technique.
+
+\item  High utilization and efficiency rates: ????????needs more clear explanation????????
+ Google was able to dramatically increase resource utilization and efficiency after moving to containers.
+
+
+\item Easy to upgrade: A container orchestration tool that is up on a running cluster must not go down while upgrading the versions of its components which might be time consuming. An upgrade should also allow to rollback to previous version to revert the changes. 
+
+
+\item Easy to manage and monitor: Although a container orchestration tool provides cluster management and monitoring, a good orchestration tool should make the cluster management easy/automated by doing most of the task by itself. 
+
+\end{enumerate}
+
+
+
+In the following sections, we have discussed the container management tools listed below:
+\begin{itemize}
+\item Apache's Mesos
+\item Google's Kubernetes
+\item Docker's Swarm
+\item CoreOs's Fleet
+\item Amazon's EC2 Container Service (ECS)
+\end{itemize}
+We have given an overview of each of the above mentioned tools and have discussed their features. We have also done a comparative study of their features.
+

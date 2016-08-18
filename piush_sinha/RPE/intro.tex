@@ -1,0 +1,31 @@
+\section{Background}
+\label{sec:bg}
+
+\subsection{Isolation and Resource Utilization}
+Every application~\cite{turtles} comes with software and hardware requirements which is necessary to run those applications. In the following section, we have discussed the idea of isolating these dependencies with a better resource control. It is implemented by using a traditional processes in an operating system while virtual machines are used in case of hypervisors. Our goal is to have a more dynamic and flexible implementation of the isolation and resource control.
+\subsection{About isolation and resource sharing in VMs}
+\label{sec:irsVM}
+In hypervisor based virtualization, isolation is achieved by having related process grouped together in virtual machines (VMs). Each of these VMs have its own operating system, its own virtualized physical memory, virtual CPU(s) and virtual input/output devices. Processes running in one VM is totally unaware of the processes running in other VMs. Although complete isolation is achieved, but having its own operating system and the abstraction provided by the hypervisor make the system virtualization too heavy and slow which affects the overall performance.
+
+\subsection{About isolation and resource sharing in traditional process}
+\label{sec:irsTP}
+Traditional processes running directly on host operating system have much better performance compared to the processes running in VMs, though they don't provide complete isolation. Although traditional processes have their own virtual address space and their own access to host's services using system calls, they share too much including file system, storage, network and all the  I/O devices.
+
+\subsection{Best of both: Container based virtualization}
+\label{sec:bob}
+Using operating-system level virtualization, also called as container based virtualization, we can achieve better performance than hypervisor based virtualization and more isolation than traditional processes. Using the host's operating system kernel, container based virtualization provides multiple isolated execution environments in userspace. (openvz-intro reference). Chroot, freeBSD JAIL, cgroups and namespace are the techniques used to implement container based virtualization.
+
+\begin{enumerate}
+\item Chroot and freeBSD JAIL: 
+Container based virtualization technique follows the concept of containing a process, also known as jailing a process, using chroot. 'chroot' allows the calling process and its child processes to be isolated by changing its root directory to a given path(sans ref). However this isolation is restricted only to the file system and doesn't include isolation of process space and network space (kamp ref).
+FreeBSD Jail is another technique that provides jailing a process which is built on 'chroot'. In addition to limiting the access to the file system, Jails protects rest of the system from the jailed process by virtualizing the network subsystem and the set of users, including its own root user (kamp ref).
+\item cgroups and namespace:
+Linux cgroups and linux namespace has changed the concept of container based virtualization by introducing linux containers (lxc). Instead of virtualizing the entire machine, linux namespace allows virtualizing a part of it. It enables different processes to have different view of the system making the whole linux container look like as a system of its own (Multiple Instances Eric ref). However, namespace itself do not provide resource management (namespace paper). Linux containers uses cgroups to limit the resources to a process or a group of processes (cgroup online kernel ref).
+\end{enumerate}
+
+\subsection{Isolation and resource sharing in distributed system using containers:}
+\label{sec:IsRsDCcont}
+A distributed system is a cluster of multiple machines where the resources of the machines are shared and used as one single large machine. A cluster of containers uses containers to create and deliver the applications, mostly one application in one container. Thus, the resources are divided among the containers as per their resource requirements. Due to being launched inside containers, applications are totally unaware of each other making them totally isolated. Although concept of container has been present for a long time (since the early time of UNIX), there has been a recent surge in use of containerized applications in distributed system by companies providing cloud services. In a production environment, the number of the containerized applications becomes enormously large. This creates the need of an orchestration tool that can control and manage the containers running in a distributed system.
+
+In the following section, we have discussed about container orchestration tool and its basic features. In the remaining paper, we have discussed five specific container orchestration tools in detail and compared their features. At the end of the paper, we have talked about the open issues related to resource sharing and isolation in a distributed system that uses containers. We have provided our approach to solve those issues and discussed how to implement it.
+

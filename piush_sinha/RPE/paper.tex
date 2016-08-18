@@ -1,0 +1,65 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{multicol, blindtext}
+
+\ifCLASSINFOpdf
+\else
+\fi
+\hyphenation{}
+
+\begin{document}
+
+\title{Mesos, Swarm, Kubernetes, Fleet and ECS: \\
+A Comparative Study of Container Orchestration Tools}
+ \author{
+  \IEEEauthorblockN{Piush K. Sinha, July 2016
+  }
+}
+
+
+% make the title area
+\maketitle
+
+
+\input{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\input{intro}
+\input{containermgttool}
+\input{mesos}
+\input{kubernetes}
+\input{swarm}
+\input{fleet}
+\input{amazon}
+\input{sysdesc}
+\input{design}
+\input{issues}
+\input{approach}
+\input{related}
+\input{implementation}
+\input{evaluation}
+\input{comparison}
+\input{open_issues}
+\input{conclusion}
+
+% use section* for acknowledgment
+%\section*{Acknowledgment}
+
+
+
+\bibliographystyle{plain}
+\bibliography{common}
+
+
+%\begin{thebibliography}{1}
+%\bibitem{Referred Name}
+%author 1 and author 2: "The title of the paper". \emph{In Proceedings of XYCZ}, \relax (conference name year), [Online] Month Year.
+%\end{thebibliography}
+
+
+
+% that's all folks
+\end{document}
+
+

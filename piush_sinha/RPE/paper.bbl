@@ -1,0 +1,10 @@
+\begin{thebibliography}{1}
+
+\bibitem{turtles}
+Muli Ben-Yehuda, Michael~D. Day, Zvi Dubitzky, Michael Factor, Nadav Har'El,
+  Abel Gordon, Anthony Liguori, Orit Wasserman, and Ben-Ami Yassour.
+\newblock The {Turtles} project: Design and implementation of nested
+  virtualization.
+\newblock In {\em Proc. of Operating Systems Design and Implementation}, 2010.
+
+\end{thebibliography}

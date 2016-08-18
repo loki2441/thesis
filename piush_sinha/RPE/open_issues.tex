@@ -1,0 +1,22 @@
+\section{Open Issues and approach}
+\label{sec:OIA}
+
+In a cluster of containers, monolithic services and large applications are broken down into micro-services and smaller applications to improve the resource utilizations and workload sharing.
+It is not so easy to disintegrate a monolithic service or application due to the complexity involved in the business processes using those services. In production environment, millions of containers are started every day on a cluster of thousands of hosts, for an instance: Kubernetes claims to launch billions of containers every week. With the recent advancement in container orchestration tools, managing and scheduling so many containerized applications on a cluster has become convenient. However, deploying millions of containers on thousands of hosts on a cluster has multiple failure points e.g. out-of memory issue or network failure. This also includes failure of a running host. Due to these failure points, challenges related to horizontal scaling of the containers and maximizing the resource utilization remain open. 
+
+Dockers indicate that the maximum number of containers running on a host is roughly 600 (needs reference) which makes the need of horizontal scaling of containers necessary. 
+
+The challenge is to make the horizontal scaling effective utilizing the resources efficiently. To utilize the resources effectively, bin-packing is used to containerize applications. bin-packing decision is a np-complete problem. Since the applications running in a container can be long jobs or batch jobs, it becomes even harder to make the decision on the resources. Additionally, it is also possible that an already scheduled job, e.g. weekly scheduled Spark batch job, is hogging the resources even though it is not using them starving the other applications from the resources. 
+
+Scaling of containers may cause resource segmentation (??????? this is my term based on my understanding so far, i am not sure if it is the right term ???????)
+
+To solve these issues, we propose to have containers shared across the nodes in a cluster i.e. running a container on two hosts at the same time. Implementing a shared container will make the resource utilization hard and dynamic. A shared container will run on multiple hosts with its own limit of resources on each of the hosts. The shared container will have a net limit on the resource utilization which will be sum of its individual limitations for each hosts. For instance, a shared container is running on machine A and machine B. It will have its own memory, CPU etc limit for machine A and machine B separately. The total limit of the container will be equal to its limit set on machine A and machine B. 
+
+In case, the container is reaching its limit set for machine A and its usage on machine B is still under the limit, then we can adjust the limit of the container on machine A by increasing it if the resources are available on machine A. This will of-course result in decreasing its resource limit for machine B.  However, the overall limit will still stay the same.
+
+By adjusting the container limits by sharing it on multiple nodes, we will make sure the resource utilization are dynamic and efficient. 
+
+Sharing the containers on multiple nodes may also solve the issue of container failure. If the container fails on one machine, it can be recovered on another machine if the resources are available instead of recovering it from its instances. This way we don't need to have multiple instances of the containers.
+
+
+We can talk about the applications and usage of this solutions: I am not sure if we should talk about its application for e.g. sharing workload of mobile phone on cloudlets.
